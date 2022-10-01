@@ -110,14 +110,14 @@ class NotesController extends Controller
 
     public function UpdateActivity(Request $request, $id)
     {
-        $activity = $request->all();
+        $activity = $request->activity;
+        
+        $notes = Note::find($id);
+        $notes = Activity::find($id);
+        $notes->activity = $activity;
+        $notes->save();
 
-        $note = Note::find($id);
-        $note->Activity($id)->update($activity);
-        // $note->activity = $activity;
-        $note->save();
-
-        return ResponseFormatter::success($note, 'Data berhasil di update');
+        return ResponseFormatter::success($notes, 'Data berhasil di update');
     }
 
     public function DeleteActivity($id)
